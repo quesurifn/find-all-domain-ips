@@ -1,6 +1,1 @@
-data/1 filter=lfs diff=lfs merge=lfs -text
-data/2 filter=lfs diff=lfs merge=lfs -text
-data/3 filter=lfs diff=lfs merge=lfs -text
-data/4 filter=lfs diff=lfs merge=lfs -text
-data/5 filter=lfs diff=lfs merge=lfs -text
-data/6 filter=lfs diff=lfs merge=lfs -text
+data/** filter=lfs diff=lfs merge=lfs -text
