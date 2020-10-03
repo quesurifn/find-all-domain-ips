@@ -5,9 +5,9 @@ import socket
 socket.setdefaulttimeout(2)
 
 def worker(i):
-    i+= 1
     with open(f"./parsed_data/{i}", "a") as save_file:
-        for line in fileinput.input(f"./data/{i}"):
+        filename = (str(i).zfill(len(str(111))))
+        for line in fileinput.input(f"./data/{filename}"):
             domain = '.'.join( list( reversed( line.split('\t')[1].split('.') ) ) )
 
             try:
@@ -16,8 +16,6 @@ def worker(i):
                 print(ip_list)
             except Exception as e:
                 pass
-
-        save_file.close()
 
 
 if __name__ == '__main__':
