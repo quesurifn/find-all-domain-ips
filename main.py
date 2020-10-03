@@ -3,9 +3,6 @@ import fileinput
 import socket
 import os
 
-from dotenv import load_dotenv
-load_dotenv()
-
 socket.setdefaulttimeout(2)
 
 def worker(i):
