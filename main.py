@@ -20,7 +20,7 @@ def worker(i):
 
 if __name__ == '__main__':
     jobs = []
-    for i in range(40):
+    for i in range(39):
         p = multiprocessing.Process(target=worker, args=(i,))
         jobs.append(p)
         p.start()
