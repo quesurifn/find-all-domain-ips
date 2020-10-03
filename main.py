@@ -13,9 +13,9 @@ def worker(i):
             try:
                 ip_list = socket.gethostbyname(domain)
                 save_file.write(f"{domain},{ip_list}\n")
+                print(ip_list)
             except Exception as e:
                 pass
-
 
         save_file.close()
 
