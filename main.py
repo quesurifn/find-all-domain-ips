@@ -5,7 +5,7 @@ import socket
 socket.setdefaulttimeout(2)
 
 def worker(i):
-    with open(f"./parsed_data/{i}", "a") as save_file:
+    with open(f"./parsed_data/{i}", "w+") as save_file:
         filename = (str(i).zfill(len(str(111))))
         for line in fileinput.input(f"./data/{filename}"):
             domain = '.'.join( list( reversed( line.split('\t')[1].split('.') ) ) )
@@ -20,7 +20,7 @@ def worker(i):
 
 if __name__ == '__main__':
     jobs = []
-    for i in range(20):
+    for i in range(40):
         p = multiprocessing.Process(target=worker, args=(i,))
         jobs.append(p)
         p.start()
