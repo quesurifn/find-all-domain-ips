@@ -5,7 +5,7 @@ import socket
 socket.setdefaulttimeout(2)
 
 def worker(i):
-    with open(f"./parsed_data/{i}", "w+") as save_file:
+    with open(f"./parsed_data/{i}", "a+") as save_file:
         filename = (str(i).zfill(len(str(111))))
         for line in fileinput.input(f"./data/{filename}"):
             domain = '.'.join( list( reversed( line.split('\t')[1].split('.') ) ) )
