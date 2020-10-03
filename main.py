@@ -1,6 +1,10 @@
 import multiprocessing
 import fileinput
 import socket
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
 
 socket.setdefaulttimeout(2)
 
@@ -20,7 +24,7 @@ def worker(i):
 
 if __name__ == '__main__':
     jobs = []
-    for i in range(39):
+    for i in range(os.environ.get("WORKERS")):
         p = multiprocessing.Process(target=worker, args=(i,))
         jobs.append(p)
         p.start()
