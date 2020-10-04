@@ -19,8 +19,9 @@ def worker(i):
                     buffer_array = []
                     print(f"{datetime.now()} -- WRITING: worker {i}")
                     save_file.close()
-            except Exception as e:
-                pass
+
+        except Exception as e:
+            pass
 
         save_file.write("\n".join(buffer_array))
 
