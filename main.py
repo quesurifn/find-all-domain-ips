@@ -1,7 +1,7 @@
 import multiprocessing
 import fileinput
 import socket
-import os
+from datetime import datetime
 
 socket.setdefaulttimeout(2)
 
@@ -18,10 +18,12 @@ def worker(i):
                 if(len(buffer_array) == 1000):
                     save_file.write("\n".join(buffer_array))
                     buffer_array = []
+                    print (f"{datetime.now()} -- WRITING: worker {i}")
             except Exception as e:
                 pass
 
         save_file.write("\n".join(buffer_array))
+        save_file.close()
 
 
 if __name__ == '__main__':
