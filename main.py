@@ -23,10 +23,11 @@ def worker(i):
         except Exception as e:
             pass
 
-        with open(f"./parsed_data/{i}", "a+") as save_file:
-            save_file.write("\n".join(buffer_array))
-            print(f"{datetime.now()} -- WRITING ****FINAL***: worker {i}")
-            save_file.close()
+    with open(f"./parsed_data/{i}", "a+") as save_file:
+        save_file.write("\n".join(buffer_array))
+        print(f"{datetime.now()} -- WRITING ***FINAL***: worker {i}")
+        save_file.close()
+
 
 
 
