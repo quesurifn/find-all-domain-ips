@@ -1,4 +1,4 @@
-import multiprocessing
+import threading
 import fileinput
 import socket
 from datetime import datetime
@@ -27,8 +27,6 @@ def worker(i):
 
 
 if __name__ == '__main__':
-    jobs = []
     for i in range(87):
-        p = multiprocessing.Process(target=worker, args=(i,))
-        jobs.append(p)
-        p.start()
+        t = threading.Thread(target=worker, args=(i,))
+        t.start()
