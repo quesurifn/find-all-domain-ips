@@ -8,20 +8,25 @@ socket.setdefaulttimeout(2)
 def worker(i):
     with open(f"./parsed_data/{i}", "a+") as save_file:
         filename = (str(i).zfill(len(str(111))))
+        buffer_array = []
         for line in fileinput.input(f"./data/{filename}"):
             domain = '.'.join( list( reversed( line.split('\t')[1].split('.') ) ) )
 
             try:
                 ip_list = socket.gethostbyname(domain)
-                save_file.write(f"{domain},{ip_list}\n")
-                print(ip_list)
+                buffer_array.append(ip_list)
+                if(len(buffer_array) == 1000):
+                    save_file.write("\n".join(buffer_array))
+                    buffer_array = []
             except Exception as e:
                 pass
+
+        save_file.write("\n".join(buffer_array))
 
 
 if __name__ == '__main__':
     jobs = []
-    for i in range(int(os.environ.get("WORKERS"))):
+    for i in range(87):
         p = multiprocessing.Process(target=worker, args=(i,))
         jobs.append(p)
         p.start()
