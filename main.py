@@ -1,4 +1,4 @@
-import threading
+import multiprocessing
 import fileinput
 import socket
 from datetime import datetime
@@ -9,13 +9,12 @@ def worker(i):
     with open(f"./parsed_data/{i}", "a+") as save_file:
         filename = (str(i).zfill(len(str(111))))
         buffer_array = []
-        for line in fileinput.FileInput(f"./data/{filename}"):
+        for line in fileinput.input(f"./data/{filename}"):
             domain = '.'.join( list( reversed( line.split('\t')[1].split('.') ) ) )
 
             try:
                 ip_list = socket.gethostbyname(domain)
                 buffer_array.append(ip_list)
-                print(ip_list)
                 if(len(buffer_array) == 1000):
                     save_file.write("\n".join(buffer_array))
                     buffer_array = []
@@ -28,6 +27,8 @@ def worker(i):
 
 
 if __name__ == '__main__':
+    jobs = []
     for i in range(87):
-        t = threading.Thread(target=worker, args=(i,))
-        t.start()
+        p = multiprocessing.Process(target=worker, args=(i,))
+        jobs.append(p)
+        p.start()
