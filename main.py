@@ -11,11 +11,9 @@ def worker(i):
         buffer_array = []
         for line in fileinput.input(f"./data/{filename}"):
             domain = '.'.join( list( reversed( line.split('\t')[1].split('.') ) ) )
-
             try:
                 ip_list = socket.gethostbyname(domain)
                 buffer_array.append(ip_list)
-                print(ip_list)
                 if(len(buffer_array) == 1000):
                     save_file.write("\n".join(buffer_array))
                     buffer_array = []
