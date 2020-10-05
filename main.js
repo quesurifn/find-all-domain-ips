@@ -23,7 +23,6 @@ if (cluster.isMaster) {
 } else {
 
   const file = files.shift()
-  console.log(file)
   const readInterface = readline.createInterface({
     input: fs.createReadStream(`./data/${file}`),
     output: process.stdout,
@@ -41,7 +40,6 @@ if (cluster.isMaster) {
       if(!err && addresses.length > 0) {
         const string_addr = addresses.join(";")
         read_array.push(`${domain,string_addr}`)
-
         if (read_array.length === 1000) {
           fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
             console.log(`${Date.now().toLocaleString()} WRITING: ${file} `)
