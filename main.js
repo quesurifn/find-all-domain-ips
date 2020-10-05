@@ -6,10 +6,9 @@ const {Resolver} = require('dns');
 const resolver = new Resolver();
 resolver.setServers(['1.1.1.1', '1.0.0.1']);
 
-const files = fs.readdirSync('./data', {encoding: 'utf8'})
-console.log(files)
-
 if (cluster.isMaster) {
+    const files = fs.readdirSync('./data', {encoding: 'utf8'})
+    console.log(files)
   console.log(`Master ${process.pid} is running`);
 
   // Fork workers.
