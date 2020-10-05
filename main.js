@@ -44,7 +44,6 @@ if (cluster.isMaster) {
   
           if(!err && addresses.length > 0) {
             const string_addr = addresses.join(";")
-            console.log(domain)
             read_array.push(`${domain,string_addr}`)
             if (read_array.length === 1000) {
               fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
