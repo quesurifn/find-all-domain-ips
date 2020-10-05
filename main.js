@@ -67,6 +67,7 @@ if (cluster.isMaster) {
           console.log(err)
         }
       })
+      process.exit(0)
     })
   });
 
