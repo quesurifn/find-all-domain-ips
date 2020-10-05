@@ -2,7 +2,7 @@ const cluster = require('cluster');
 const numCPUs = 87;
 var fs = require('fs');
 const readline = require('readline');
-const dns = require('dns');
+const {Resolver} = require('dns');
 const resolver = new Resolver();
 resolver.setServers(['1.1.1.1', '1.0.0.1']);
 
