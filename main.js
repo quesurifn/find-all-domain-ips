@@ -29,23 +29,32 @@ if (cluster.isMaster) {
     console: false
   });
 
+  const read_array = [];
   readInterface.on('line', function(line) {
-
     const domain = line.split('\t')[1].split('.').reverse().join('.')
-
     resolver.resolve4(domain, (err, addresses) => {
       if(err) {
         console.error(err)
       }
 
       const string_addr = addresses.join(";")
+      read_array.push(`${domain,string_addr}`)
 
-      fs.appendFile(`./parsed_data/${file}`,`${domain,string_addr}`, {encoding: 'utf8'}, (err) => {
-        if(err) {
-          console.log(err)
-        }
-      });
+      if (read_array.length === 500) {
+        fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
+          if(err) {
+            console.log(err)
+          }
+        })
+      }
     });
-
   });
+
+  readInterface.on('close', () => {
+    fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
+      if(err) {
+        console.log(err)
+      }
+    })
+  })
 }
