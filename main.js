@@ -7,7 +7,7 @@ const resolver = new Resolver();
 resolver.setServers(['1.1.1.1', '1.0.0.1']);
 
 const files = fs.readdirSync('./data', {encoding: 'utf8'})
-
+console.log(files)
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
