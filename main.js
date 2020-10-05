@@ -21,6 +21,8 @@ if (cluster.isMaster) {
     console.log(`worker ${worker.process.pid} died`);
   });
 } else {
+ 
+  let notFound = 0;
 
   process.on('message', function(msg) {
     console.log('Worker ' + process.pid + ' has started.');
@@ -38,6 +40,7 @@ if (cluster.isMaster) {
 
         resolver.resolve4(domain, (err, addresses) => {
           if(err) {
+            notFound++
             //console.error(err)
           }
           if(!err && addresses.length > 0) {
@@ -62,7 +65,9 @@ if (cluster.isMaster) {
 
     readInterface.on('close', () => {
       console.log(`CLOSING ${file} CLOSING ${file} CLOSING`)
-      fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
+      let joined = read_array.join('\n')
+      joined += `\n *****NOT FOUND****** ${notFound}`
+      fs.appendFile(`./parsed_data/${file}`,joined, {encoding: 'utf8'}, (err) => {
         if(err) {
           console.log(err)
         }
