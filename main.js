@@ -8,7 +8,6 @@ resolver.setServers(['1.1.1.1', '1.0.0.1']);
 
 if (cluster.isMaster) {
   const files = fs.readdirSync('./data', {encoding: 'utf8'})
-   
   console.log(`Master ${process.pid} is running`);
 
   // Fork workers.
@@ -41,7 +40,6 @@ if (cluster.isMaster) {
           if(err) {
             //console.error(err)
           }
-  
           if(!err && addresses.length > 0) {
             const string_addr = addresses.join(";")
             read_array.push(`${domain},${string_addr}`)
@@ -60,10 +58,10 @@ if (cluster.isMaster) {
       } catch(e) {
         console.log(e)
       }
-   
     });
 
     readInterface.on('close', () => {
+      console.log(`CLOSING ${file} CLOSING ${file} CLOSING`)
       fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
         if(err) {
           console.log(err)
