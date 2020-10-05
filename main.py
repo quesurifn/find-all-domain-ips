@@ -29,10 +29,6 @@ def worker(i):
         print(f"{datetime.now()} -- WRITING ***FINAL***: worker {i}")
         save_file.close()
 
-
-
-
-
 if __name__ == '__main__':
     jobs = []
     for i in range(87):
