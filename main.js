@@ -31,7 +31,7 @@ if (cluster.isMaster) {
       console: false
     });
 
-    const read_array = [];
+    let read_array = [];
     readInterface.on('line', function(line) {
       const domain = line.split('\t')[1].split('.').reverse().join('.')
       resolver.resolve4(domain, (err, addresses) => {
@@ -48,6 +48,7 @@ if (cluster.isMaster) {
               if(err) {
                 console.log(err)
               }
+              read_array.length = 0
             })
           }
         }
