@@ -36,7 +36,7 @@ if (cluster.isMaster) {
       const domain = line.split('\t')[1].split('.').reverse().join('.')
       resolver.resolve4(domain, (err, addresses) => {
         if(err) {
-          console.error(err)
+          //console.error(err)
         }
 
         if(!err && addresses.length > 0) {
