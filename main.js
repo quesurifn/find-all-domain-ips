@@ -34,26 +34,32 @@ if (cluster.isMaster) {
     let read_array = [];
     readInterface.on('line', function(line) {
       const domain = line.split('\t')[1].split('.').reverse().join('.')
-      resolver.resolve4(domain, (err, addresses) => {
-        if(err) {
-          //console.error(err)
-        }
+      try {
 
-        if(!err && addresses.length > 0) {
-          const string_addr = addresses.join(";")
-          read_array.push(`${domain,string_addr}`)
-          if (read_array.length === 1000) {
-            fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
-              console.log(`${Date.now().toLocaleString()} WRITING: ${file} `)
-              if(err) {
-                console.log(err)
-              }
-              read_array.length = 0
-            })
+        resolver.resolve4(domain, (err, addresses) => {
+          if(err) {
+            //console.error(err)
           }
-        }
+  
+          if(!err && addresses.length > 0) {
+            const string_addr = addresses.join(";")
+            read_array.push(`${domain,string_addr}`)
+            if (read_array.length === 1000) {
+              fs.appendFile(`./parsed_data/${file}`,read_array.join('\n'), {encoding: 'utf8'}, (err) => {
+                console.log(`${Date.now().toLocaleString()} WRITING: ${file} `)
+                if(err) {
+                  console.log(err)
+                }
+                read_array.length = 0
+              })
+            }
+          }
+        });
 
-      });
+      } catch(e) {
+        console.log(e)
+      }
+   
     });
 
     readInterface.on('close', () => {
