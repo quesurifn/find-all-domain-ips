@@ -27,7 +27,7 @@ if (cluster.isMaster) {
     const file = msg.file
     const readInterface = readline.createInterface({
       input: fs.createReadStream(`./data/${file}`),
-      output: process.stdout,
+      output: null,
       console: false
     });
 
