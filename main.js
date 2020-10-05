@@ -24,6 +24,7 @@ if (cluster.isMaster) {
 } else {
 
   process.on('message', function(msg) {
+    console.log('Worker ' + process.pid + ' has started.');
     const file = msg.file
     const readInterface = readline.createInterface({
       input: fs.createReadStream(`./data/${file}`),
