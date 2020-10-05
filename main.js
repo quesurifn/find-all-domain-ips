@@ -1,5 +1,5 @@
 const cluster = require('cluster');
-const numCPUs = 87;
+const numCPUs = 1;
 var fs = require('fs');
 const readline = require('readline');
 const {Resolver} = require('dns');
