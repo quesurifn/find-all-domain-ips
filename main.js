@@ -23,6 +23,7 @@ if (cluster.isMaster) {
 } else {
 
   const file = files.shift()
+  console.log(file)
   const readInterface = readline.createInterface({
     input: fs.createReadStream(`./data/${file}`),
     output: process.stdout,
