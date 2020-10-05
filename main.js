@@ -38,7 +38,7 @@ if (cluster.isMaster) {
         console.error(err)
       }
 
-      if(addresses.length > 0) {
+      if(!err && addresses.length > 0) {
         const string_addr = addresses.join(";")
         read_array.push(`${domain,string_addr}`)
 
