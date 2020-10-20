@@ -13,8 +13,8 @@ def worker(i):
         domain = '.'.join( reversed( line.split('\t')[1].split('.') ) )
         try:
             ip_list = socket.gethostbyname(domain)
-            buffer_array.append(f"domain,{ip_list}")
-            if(len(buffer_array) == 1000):
+            buffer_array.append(f"{domain},{ip_list}")
+            if len(buffer_array) == 1000:
                 with open(f"./parsed_data/{i}", "a+") as save_file:
                     save_file.write("\n".join(buffer_array))
                     buffer_array = []
