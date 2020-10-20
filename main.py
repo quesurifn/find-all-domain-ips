@@ -12,6 +12,7 @@ def worker(i):
     for line in fileinput.input(f"./data/{filename}"):
         domain = '.'.join( reversed( line.split('\t')[1].split('.') ) )
         try:
+            print(domain)
             ip_list = socket.gethostbyname(domain)
             buffer_array.append(f"{domain},{ip_list}")
             if len(buffer_array) == 1000:
