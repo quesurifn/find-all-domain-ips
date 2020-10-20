@@ -7,19 +7,18 @@ from datetime import datetime
 socket.setdefaulttimeout(2)
 
 def worker(i):
-    filename = (str(i).zfill(len(str(111))))
+    filename = str(i).zfill(len(str(111)))
     buffer_array = []
     for line in fileinput.input(f"./data/{filename}"):
-        domain = '.'.join( list( reversed( line.split('\t')[1].split('.') ) ) )
+        domain = '.'.join( reversed( line.split('\t')[1].split('.') ) )
         try:
             ip_list = socket.gethostbyname(domain)
-            buffer_array.append(ip_list)
+            buffer_array.append(f"domain,{ip_list}")
             if(len(buffer_array) == 1000):
                 with open(f"./parsed_data/{i}", "a+") as save_file:
                     save_file.write("\n".join(buffer_array))
                     buffer_array = []
                     print(f"{datetime.now()} -- WRITING: worker {i}")
-                    save_file.close()
 
         except Exception as e:
             pass
@@ -27,7 +26,6 @@ def worker(i):
     with open(f"./parsed_data/{i}", "a+") as save_file:
         save_file.write("\n".join(buffer_array))
         print(f"{datetime.now()} -- WRITING ***FINAL***: worker {i}")
-        save_file.close()
 
 if __name__ == '__main__':
     jobs = []
