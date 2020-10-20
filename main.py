@@ -21,6 +21,7 @@ def worker(i):
                     print(f"{datetime.now()} -- WRITING: worker {i}")
 
         except Exception as e:
+            print(e)
             pass
 
     with open(f"./parsed_data/{i}", "a+") as save_file:
